@@ -20,15 +20,16 @@ $(document).ready(function() {
     downloadPackages(pdftex, packages, function() {
       button.text('Compiling…');
       pdftex.compile(code).then(function() {
-        button.text('Opening PDF…');
+        button.text('Creating PDF…');
 
         pdftex.getFile('/', 'pdftex-input-file.pdf').then(function(pdf) {
           button.text('Compile');
           button.removeAttr('disabled');
           button.removeClass('disabled');
 
-         $('#buttons #open_pdf').remove();
-         $('#buttons').append('<button id="open_pdf" class="btn">Open PDF</button>').click(function() { window.open('data:application/pdf;base64,'+window.btoa(pdf)); });
+          var url = 'data:application/pdf;base64,'+window.btoa(pdf);
+          $('#buttons #open_pdf').remove();
+          $('#buttons').append('<button id="#open_pdf" class="btn">Open PDF</button>').click(function() { window.open(url) });
         });
       });
     });
